@@ -1,0 +1,21 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infinity
+  labels:
+    app: zhack
+spec:
+  serviceName: infinity-svc
+  selector:
+    matchLabels:
+      app: zhack
+  template:
+    metadata:
+      labels:
+        app: zhack
+    spec:
+      containers:
+      - name: infinity
+        image: registry.access.redhat.com/ubi8/ubi-minimal
+        command: ["/bin/bash", "-c", "sleep infinity"]

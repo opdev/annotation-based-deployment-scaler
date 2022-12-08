@@ -1,0 +1,15 @@
+domain: example.com
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: annotation-based-deployment-scaler
+repo: github.com/opdev/annotation-based-deployment-scaler
+resources:
+- controller: true
+  domain: example.com
+  group: component
+  kind: Deployment
+  version: v1alpha1
+version: "3"
