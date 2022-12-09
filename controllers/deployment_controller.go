@@ -40,7 +40,7 @@ type DeploymentReconciler struct {
 // move the current state of the cluster closer to the desired state.
 func (r *DeploymentReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	instanceKey := req.NamespacedName
-	l := log.FromContext(ctx).WithValues("deployment", instanceKey)
+	l := log.FromContext(ctx).WithValues("deployment", instanceKey, "reconciler", "Deployment")
 	l.Info("reconciliation started for Deployment")
 
 	// If the deployment exists, get it and patch it
@@ -76,16 +76,5 @@ func (r *DeploymentReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 func (r *DeploymentReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&appsv1.Deployment{}).
-		// Uncomment the following line adding a pointer to an instance of the controlled resource as an argument
-		// For().
 		Complete(r)
-}
-
-// hasAnnotationWithValue returns true if the key exists in a and has value desiredValue.
-func hasAnnotationWithValue(a map[string]string, key, desiredValue string) bool {
-	if actualV, ok := a[key]; ok {
-		return actualV == desiredValue
-	}
-
-	return false
 }
